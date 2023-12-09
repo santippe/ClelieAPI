@@ -1,0 +1,59 @@
+{
+	"authorization": {
+		"url": "/login",
+		"request": {
+			"header": null,
+			"body": {
+				"email": string,
+				"password": string
+			}
+		},
+		"response": {
+			"token": string
+		}
+	},
+	"registration": {
+		"url": "/sign-up",
+		"request": {
+			"header": null,
+			"body": {
+				"name": string,
+				"lastName": string,
+				"email": string,
+				"city": string,
+				"phone": string,
+				"email": string,
+				"dateOfBirth": date-time,
+				"professional": bool,
+				"password": string
+			}
+		},
+		"response": {
+			"token": string
+		}
+	},
+	"/checksession": {
+		"request": {
+			"header": {
+				"token": string
+			},
+			"body": null
+		},
+		"response": {
+			"header": null,
+			"body": null
+		}
+	},
+	"/mailrecovery": {
+		"request": {
+			"header": null,
+			"body": {
+				"email": string
+			}
+		},
+		"response": {
+			"header": null,
+			"body": null
+		}
+	}
+}
