@@ -1,6 +1,7 @@
 {
 	"authorization": {
 		"url": "/login",
+        "method": "POST",
 		"request": {
 			"header": null,
 			"body": {
@@ -14,15 +15,19 @@
 	},
 	"registration": {
 		"url": "/sign-up",
+        "method": "POST",
 		"request": {
 			"header": null,
 			"body": {
 				"name": string,
 				"lastName": string,
 				"email": string,
-				"city": string,
+				"city": {
+                    "name": string,
+                    "latitude": double,
+                    "longitude": double
+                },
 				"phone": string,
-				"email": string,
 				"dateOfBirth": date-time,
 				"professional": bool,
 				"password": string
@@ -32,7 +37,8 @@
 			"token": string
 		}
 	},
-	"/checksession": {
+	"checksession": {
+        "url": "/checksession",
 		"request": {
 			"header": {
 				"token": string
@@ -44,7 +50,9 @@
 			"body": null
 		}
 	},
-	"/mailrecovery": {
+	"passwordrecovery": {
+        "url": "/passwordrecovery",
+        "method": "POST",
 		"request": {
 			"header": null,
 			"body": {
@@ -55,5 +63,119 @@
 			"header": null,
 			"body": null
 		}
-	}
+	},
+    "user": {
+        "url": "/user/{id}",
+        "method": "GET",
+        "request": {
+            "header": {
+				"token": string
+			},
+            "body": null
+        },
+        "response": {
+            "id": string,
+            "email": string,
+            "name": string,
+            "lastName": string,
+            "partner": bool,
+            "city": {
+                "name": string,
+                "latitude": double,
+                "longitude": double
+            },
+            "phone": string,
+            "rating": double,
+            "imageUrl": string,
+            "dateOfBirth": date-time,
+            "professional": bool,
+            "followers": int,
+            "following": int,
+            "bio": string
+        }
+    },
+    "user-posts": {
+        "url": "/user/{id}/posts",
+        "method": "GET",
+        "request": {
+            "header": {
+				"token": string
+			},
+            "queryParams": {
+                "page": int,
+                "size": int
+            },
+            "body": null
+        },
+        "response": {
+            "pages": int,
+            "total": int,
+            "items": [
+                {
+                    "id": string,
+                    "imageUrl": string,
+                    "description": string,
+                    "liked": bool,
+                    "favorite": bool,
+                    "commentCount": int,
+                    "user": {
+                        "id": string,
+                        "name": string,
+                        "lastName": string,
+                        "email": string,
+                        "professional": bool,
+                        "imageUrl": string,
+                        "city": {
+                            "name": string,
+                            "latitude": double,
+                            "longitude": double
+                        }
+                    },
+                    "lastLikes": [
+                        {
+                            "id": string,
+                            "name": string,
+                            "lastName": string,
+                            "imageUrl": string
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "edit-user": {
+        "url": "/user",
+        "method": "PATCH",
+        "request": {
+            "header": {
+				"token": string
+			},
+            "body": {
+                "name": string?,
+                "lastName": string?,
+                "email": string?,
+                "city": {
+                    "name": string,
+                    "latitude": double,
+                    "longitude": double
+                },
+                "phone": string?,
+                "dateOfBirth": date-time?,
+                "professional": bool?,
+            }
+        }
+    },
+    "edit-password": {
+        "url": "/user/edit-password",
+        "method": "POST",
+        "request": {
+            "header": {
+				"token": string
+			},
+            "body": {
+                "oldPassword": string,
+                "newPassword": string
+            }
+        }
+    }
 }
